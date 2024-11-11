@@ -1,15 +1,23 @@
 import time
-import requests
-from bs4 import BeautifulSoup
+import winsound  # Module pour le son sous Windows
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
 from plyer import notification
 
-url = 'https://www.binance.com/fr/support/announcement'
+# Chemin de ChromeDriver
+PATH = r"D:\Code\chromedriver-win64\chromedriver.exe"
+service = Service(PATH)
+driver = webdriver.Chrome(service=service)
+
+url = 'https://www.binance.com/fr/support/announcement/nouveaux-listing-de-cryptomonnaies?c=48&navId=48'
+driver.get(url)
 
 def obtenir_titres_annonces():
-    response = requests.get(url)
-    soup = BeautifulSoup(response.text, 'html.parser')
-    titres = soup.select('a.css-1ej4hfo')
-    return [titre.text for titre in titres]
+    driver.get(url)
+    titres_elements = driver.find_elements(By.CSS_SELECTOR, 'a.css-1w8j6ia div.css-1yxx6id')
+    titres = [titre.text for titre in titres_elements]
+    return titres
 
 titres_vus = set(obtenir_titres_annonces())
 
@@ -23,6 +31,8 @@ while True:
             message=titre,
             timeout=10
         )
+        # Joue un son Windows pour accompagner la notification
+        winsound.Beep(1000, 500)  # Fréquence 1000 Hz, durée 500 ms
         titres_vus.add(titre)
 
     time.sleep(60)
