@@ -19,7 +19,7 @@
 
 ```bash
 # Cloner le dépôt GitHub
-git clone https://github.com/votre_nom_utilisateur/BinanceNotifier.git
+git clone https://github.com/CVanzetta/Mobumoney.git
 cd BinanceNotifier
 ```
 
