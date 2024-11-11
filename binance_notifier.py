@@ -10,7 +10,7 @@ PATH = r"D:\Code\chromedriver-win64\chromedriver.exe"
 service = Service(PATH)
 driver = webdriver.Chrome(service=service)
 
-url = 'https://www.binance.com/fr/support/announcement/nouveaux-listing-de-cryptomonnaies?c=48&navId=48'
+url = 'https://www.binance.com/en/support/announcement/new-cryptocurrency-listing?c=48&navId=48'
 driver.get(url)
 
 def obtenir_titres_annonces():
